@@ -22,6 +22,13 @@ const otazky = [
     dataOdpoved: ['Pomeranč', 'Jahody', 'Rybíz'],
     spravna_odpoved: 0,
   },
+  {
+    poradi: 4,
+    otazka: 'Jakou chemickou značku má zlato?',
+    obrazek: 'obrazky/zlato.jpg',
+    dataOdpoved: ['Zlato nemá značku.', 'Ag', 'Au'],
+    spravna_odpoved: 2,
+  },
 ];
 
 console.log(otazky[0].otazka);
@@ -30,7 +37,6 @@ console.log(otazky[0].otazka);
 
 let poradi = document.querySelector('#poradi');
 let otazka = document.querySelector('#otazka');
-
 let kviz = document.querySelector('.kviz');
 let i = 0;
 zobrazOtazku();
@@ -38,18 +44,15 @@ zobrazOtazku();
 // Zavoláme ji jednou na začátku a poté vždy po odpovězení
 
 function zobrazOtazku() {
-  //for (let i = 0; i < otazky.length; i++) {
   poradi.textContent = 'OTÁZKA ' + otazky[i].poradi + '/' + otazky.length;
-  //}
   otazka.textContent = otazky[i].otazka;
 
   let obsah = document.querySelector('.obsah');
-  //kviz.removeChild(obsah);
-
   obsah.innerHTML = '';
   let foto = document.createElement('div');
   obsah.appendChild(foto);
   foto.className = 'foto';
+
   let obrazek = document.createElement('img');
   foto.appendChild(obrazek);
   obrazek.src = otazky[i].obrazek;
@@ -59,6 +62,7 @@ function zobrazOtazku() {
   let moznosti = document.createElement('div');
   obsah.appendChild(moznosti);
   moznosti.id = 'moznosti';
+
   let odpovedi = document.createElement('ul');
   moznosti.appendChild(odpovedi);
   odpovedi.id = 'odpovedi';
@@ -67,11 +71,10 @@ function zobrazOtazku() {
     odpovedi.appendChild(odpoved);
     odpoved.textContent = otazky[i].dataOdpoved[j];
     odpoved.setAttribute('data-odpoved', j);
-    //odpovedi.innerHTML +=
-    // '<li data-odpoved=' + j + '>' + otazky[i].dataOdpoved[j] + '</li>';
   }
+
   let seznamOdpovedi = document.querySelectorAll('li');
-  console.log(seznamOdpovedi);
+  //console.log(seznamOdpovedi);
   seznamOdpovedi.forEach((vybranaOdpoved) => {
     vybranaOdpoved.addEventListener('click', klikNaOdpoved);
   });
@@ -79,51 +82,25 @@ function zobrazOtazku() {
 
 let poleOdpovedi = [];
 let poleOdpovediText = [];
-// klikNaOdpoved();
 
 // Funkce se postará o obsluhu kliknutí na odpověď
 // Musíme ji navázat na kokrétní odpovědi každé otázky (to uděláme v rámci funkce zobrazOtazku())
 function klikNaOdpoved(udalost) {
   let vybranaOdpoved = udalost.target.dataset.odpoved;
-  console.log(udalost);
-  console.log(vybranaOdpoved);
+  // console.log(udalost);
+  // console.log(vybranaOdpoved);
   poleOdpovedi.push(vybranaOdpoved);
   poleOdpovediText.push(udalost.target.innerHTML);
-  console.log(otazky.length);
+  // console.log(otazky.length);
   if (otazky[i].poradi < otazky.length) {
     i = i + 1;
     zobrazOtazku();
-    /*if (parseInt(vybranaOdpoved) == otazky[i].spravna_odpoved) {
-      console.log('odpovedi');
-      return 1;
-    } else {
-      return 0;
-    }*/
   } else {
-    console.log('hotovo');
+    //  console.log('hotovo');
     zobrazVyhodnoceni();
   }
-  /*if (parseInt(vybranaOdpoved) == otazky[i].spravna_odpoved) {
-    console.log('odpovedi');
-    return 1;
-  } else {
-    return 0;
-  }*/
 }
 
-/* 
-  odpoved.addEventListener('click', function () {
-    
-    console.log(el);
-    if (value == otazky[i].spravna_odpoved) {
-      console.log('odpovedi');
-      return 1;
-    } else {
-      return 0;
-    }
-  });*/
-//}
-let vyslednaOdpoved = ' ';
 // Když už mám odpovězeno na vše (řídí se velikosí objektu otazky na řádku 3), tak mohu zobrazit výsledky
 // Vypočítám skóre a nageneruje nové elementy do HTML
 // Touto funkcí končí můj program (budu se rozhodovat, zda ji zavolat v rámci klikNaOdpoved())
@@ -131,6 +108,7 @@ function zobrazVyhodnoceni() {
   let vysledek = document.querySelector('.vysledek');
   kviz.style.display = 'none';
   vysledek.style.display = 'block';
+
   let hodnoceni = document.querySelector('#hodnoceni');
   for (let x = 0; x < otazky.length; x++) {
     let odpovedNaOtazku = document.createElement('div');
@@ -149,11 +127,11 @@ function zobrazVyhodnoceni() {
 
     function spravnaOdpoved() {
       if (poleOdpovedi[x] == otazky[x].spravna_odpoved) {
-        console.log(poleOdpovedi);
-        console.log('odpovedi');
+        //       console.log(poleOdpovedi);
+        //       console.log('odpovedi');
         return 'To je SPRÁVNĚ.';
       } else {
-        console.log('chyba');
+        //       console.log('chyba');
         return (
           'Správna odpověď je ' +
           otazky[x].dataOdpoved[otazky[x].spravna_odpoved] +
@@ -165,6 +143,7 @@ function zobrazVyhodnoceni() {
 
   let vysledekHodnoceni = document.createElement('h2');
   vysledek.appendChild(vysledekHodnoceni);
+
   let pocetSpravnychOdpovedi = 0;
   for (let y = 0; y < otazky.length; y++) {
     if (poleOdpovedi[y] == otazky[y].spravna_odpoved) {
@@ -181,12 +160,4 @@ function zobrazVyhodnoceni() {
     ' OTÁZEK. Úspěšnost ' +
     parseInt((pocetSpravnychOdpovedi / otazky.length) * 100) +
     '%.';
-
-  //hodnoceni.innerHTML +=
-  // '<div class="stylOtazky">' + otazky[x].poradi + '. ' + otazky[x].otazka + '</div>';
-
-  // odpoved.textContent = otazky[i].dataOdpoved[j];
-  //odpoved.setAttribute('data-odpoved', j);
-  //odpovedi.innerHTML +=
-  // '<li data-odpoved=' + j + '>' + otazky[i].dataOdpoved[j] + '</li>';
 }
