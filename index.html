@@ -1,47 +1,46 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Superkvíz</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!--HTML i CSS můžeš kdykoliv měnit podle potřeby!-->
+    <h1>Superkvíz</h1>
 
-<head>
-	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Superkvíz</title>
-	<link rel="stylesheet" href="style.css">
-</head>
-<body>
-	<!--HTML i CSS můžeš kdykoliv měnit podle potřeby!-->
-	<h1>Superkvíz</h1>
+    <!--Tento DIV obaluje celý kvíz, můžeš jej v JS použít jako hlavní element, na který se odkážeš-->
+    <div class="kviz">
+      <!--Sem můžeš zapsat pořadí otázky. opět pomocí JS-->
+      <p id="poradi"></p>
 
-	<!--Tento DIV obaluje celý kvíz, můžeš jej v JS použít jako hlavní element, na který se odkážeš-->
-	<div class="kviz">
+      <!--A sem už přijde samotná otázka-->
+      <h2 id="otazka"></h2>
 
-		<!--Sem můžeš zapsat pořadí otázky. opět pomocí JS-->
-		<p id="poradi"></p>
+      <!--Toto je ukázka případné struktury - rovnou to nahraď podobnou strukturou reálné otázky pomocí JS-->
+      <div class="obsah">
+        <div class="foto">
+          <img
+            id="obrazek"
+            src="obrazky/snehurka.jpg"
+            alt="Ilustrační obrázek"
+          />
+        </div>
 
-		<!--A sem už přijde samotná otázka-->
-		<h2 id="otazka"></h2>
+        <div id="moznosti">
+          <ul id="odpovedi"></ul>
+        </div>
+      </div>
+    </div>
 
-		<!--Toto je ukázka případné struktury - rovnou to nahraď podobnou strukturou reálné otázky pomocí JS-->
-		<div class="obsah">
-			<div class="foto">
-				<img id="obrazek" src="obrazky/snehurka.jpg" alt="Ilustrační obrázek">
-			</div>
+    <!--A nakonci bude tady výsledek - nejdřív vidět není a poté ano. U otázek je to opačně.-->
+    <div class="vysledek">
+      <h2>Tvoje hodnocení</h2>
+      <div id="hodnoceni"></div>
+    </div>
 
-			<div id="moznosti">
-				<ul id="odpovedi"></ul>
-			</div>
-		</div>
-
-	</div>
-
-	<!--A nakonci bude tady výsledek - nejdřív vidět není a poté ano. U otázek je to opačně.-->
-	<div class="vysledek">
-		<h2>Tvoje hodnocení</h2>
-		<div id="hodnoceni"></div>
-	</div>
-
-
-	<script src="kviz.js"></script>
-
-</body>
+    <script src="kviz.js"></script>
+  </body>
 </html>
